@@ -1,0 +1,86 @@
+<mvc:View  displayBlock="true"
+    controllerName="com.stellium.demo.products.controller.Products"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns="sap.m">
+    <semantic:SemanticPage id="idProductsPage">
+        <semantic:titleHeading>
+            <Title id="idSemTitHeading" text="{i18n>appTitle}" />
+        </semantic:titleHeading> 
+        <semantic:headerContent>
+            <IconTabBar id="idReport-hdrCnt-IconTabBar"
+                applyContentPadding="false"
+                select=".onQuickFilter">
+                <items>
+                    <IconTabFilter id="_IDGenIconTabFilter1"
+						key="all"
+						showAll="true"
+						count="{viewModel>/countAll}"
+						text="{i18n>WorklistFilterProductsAll}"/>
+					<IconTabSeparator id="_IDGenIconTabSeparator1"/>
+					<IconTabFilter id="_IDGenIconTabFilter2"
+						key="inStock"
+						icon="sap-icon://message-success"
+						iconColor="Positive"
+						count="{viewModel>/inStock}"
+						text="{i18n>WorklistFilterInStock}"/>
+					<IconTabFilter id="_IDGenIconTabFilter3"
+						key="shortage"
+						icon="sap-icon://message-warning"
+						iconColor="Critical"
+						count="{viewModel>/shortage}"
+						text="{i18n>WorklistFilterShortage}"/>
+					<IconTabFilter id="_IDGenIconTabFilter4"
+						key="outOfStock"
+						icon="sap-icon://message-error"
+						iconColor="Negative"
+						count="{viewModel>/outOfStock}"
+						text="{i18n>WorklistFilterOutOfStock}"/>
+                </items>
+            </IconTabBar>
+        </semantic:headerContent>
+        <semantic:content>
+            <Table id="idProductsTable"
+                growing="true"
+                growingThreshold="7"
+                growingScrollToLoad="false"
+                sticky="ColumnHeaders"
+                updateFinished="onProductsTableUpdateFinished"
+                items="{
+                    path: '/Products',
+                    parameters:{
+                        'expand': 'Supplier'
+                    }
+                }">
+                <columns>
+                    <Column id="idProductCol"><Text id="idProductColLab" text="{i18n>ProductColLab}"/></Column>
+                    <Column id="idSupplierCol"><Text id="idSupplierColLab" text="{i18n>SupplierColLab}"/></Column>
+                    <Column id="idPriceCol"><Text id="idPriceColLab" text="{i18n>PriceColLab}"/></Column>
+                    <Column id="idOrderedCol"><Text id="idOrderedColLab" text="{i18n>OrderedColLab}"/></Column>
+                    <Column id="idStockCol"><Text id="idStockColLab" text="{i18n>StockColLab}"/></Column>
+                </columns>
+                <items>
+                    <ColumnListItem 
+                        id="idReportTableCLI"
+                        type="Navigation"
+                        press=".onPress">
+                        <ObjectIdentifier id="idProductObjId" title="{ProductName}"/>
+                        <Text id="idSupplier" text="{Supplier/CompanyName}" />
+                        <ObjectNumber id="idPrice" 
+                            unit='INR'
+                            number="{UnitPrice}" />
+                        <ObjectNumber
+                            id="idUnitsOnOrder"
+                            number="{
+                                path: 'UnitsOnOrder'}"
+                                unit="PC"/>
+                        <ObjectNumber
+                            id="idUnitsInStock"
+                            number="{UnitsInStock}"
+                            unit="PC"/>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+    </semantic:SemanticPage>
+</mvc:View>
