@@ -1,0 +1,54 @@
+<mvc:View  displayBlock="true"
+    controllerName="com.stellium.demo.products.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns="sap.m">
+    <semantic:SemanticPage id="idProductsPage">
+        <semantic:titleHeading>
+            <Title id="idDetailSemTitHeading" text="{i18n>DetailPageTitle}" />
+        </semantic:titleHeading>
+        <semantic:headerContent>
+			<FlexBox id="_IDGenFlexBox1"
+				alignItems="Start"
+				justifyContent="SpaceBetween">
+				<Panel id="_IDGenPanel1" backgroundDesign="Transparent">
+					<ObjectAttribute id="_IDGenObjectAttribute1"
+						title="{i18n>ObjectProductIdText}"
+						text="{
+							path: 'ProductID'
+                        }"/>
+					<ObjectAttribute id="_IDGenObjectAttribute2"
+						title="{i18n>ObjectPriceTitle}"
+						text="{
+							path: 'UnitPrice'
+                        } EUR"/>
+				</Panel>
+				<Panel id="_IDGenPanel2" backgroundDesign="Transparent">
+					<ObjectNumber
+						id="objectHeader"
+						unit="PC"
+						textAlign="End"
+						state="{
+							path: 'UnitsInStock'
+                        }"
+						number="{
+							path: 'UnitsInStock'
+                        }">
+					</ObjectNumber>
+					<ObjectStatus id="_IDGenObjectStatus1"
+						text="{i18n>ObjectDiscontinuedStatusText}"
+						state="Error"
+						visible="{path:'Discontinued'}"/>
+					<ProgressIndicator id="_IDGenProgressIndicator1"
+						width="300px"
+						percentValue="{UnitsInStock}"
+						displayValue="{UnitsInStock}"
+						showValue="true"
+						state="{
+							path: 'UnitsInStock'
+                        }" />
+				</Panel>
+			</FlexBox>
+		</semantic:headerContent> 
+    </semantic:SemanticPage>    
+</mvc:View>
