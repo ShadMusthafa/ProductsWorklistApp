@@ -1,0 +1,14 @@
+<mvc:View  displayBlock="true"
+    controllerName="com.stellium.demo.products.controller.NotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <MessagePage showHeader="false"
+				 text="Your browser can't load this page properly."
+				 enableFormattedText="true"
+				 description="Invalid path or prduct not found"
+				 icon="sap-icon://message-warning">
+		<buttons>
+			<Button text="Go Home" press="handleGoHomeBtnPress"/>
+		</buttons>
+	</MessagePage>
+</mvc:View>

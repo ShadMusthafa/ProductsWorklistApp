@@ -97,7 +97,10 @@
                 "viewPath": "com.stellium.demo.products.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target":["TargetNotFound"]
+                }
             },
             "routes": [
                 {
@@ -129,6 +132,13 @@
                     "clearControlAggregation": false,
                     "viewId": "Detail",
                     "viewName": "Detail"
+                },
+                "TargetNotFound":{
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "NotFound",
+                    "viewName": "NotFound"
                 }
             }
         },

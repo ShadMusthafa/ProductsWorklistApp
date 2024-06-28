@@ -10,6 +10,18 @@ sap.ui.define(
         this.getRouter().getRoute("RouteDetail").attachPatternMatched(this._onDetailPatternMatched, this)
       },
 
+      numberUnitFormatter:function(sValue){
+        if(!sValue) return 0;
+
+        return parseFloat(sValue).toFixed(2);
+      },
+
+      quantityState:function(iValue){
+        if(iValue > 10) return "Success";
+        if(iValue > 1) return "Warning";
+        else return "Error";
+      },
+
       _onDetailPatternMatched: function (oEvent) {
         var oArgs = oEvent.getParameter('arguments'),
           sProductID = oArgs.productID;
@@ -24,7 +36,10 @@ sap.ui.define(
           });
 
           oView.bindElement({
-              path: sKey
+              path: sKey,
+              parameters:{
+                expand: 'Supplier,Category'
+              }
           });
         })
       }

@@ -2,26 +2,26 @@
     controllerName="com.stellium.demo.products.controller.Detail"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.f.semantic"
+	xmlns:l="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form"
     xmlns="sap.m">
     <semantic:SemanticPage id="idProductsPage">
         <semantic:titleHeading>
-            <Title id="idDetailSemTitHeading" text="{i18n>DetailPageTitle}" />
+            <Title id="idDetailSemTitHeading" text="{ProductName}" />
         </semantic:titleHeading>
         <semantic:headerContent>
-			<FlexBox id="_IDGenFlexBox1"
-				alignItems="Start"
+			<FlexBox id="idDetail-header-container"
+				alignItems="Center"
 				justifyContent="SpaceBetween">
 				<Panel id="_IDGenPanel1" backgroundDesign="Transparent">
 					<ObjectAttribute id="_IDGenObjectAttribute1"
 						title="{i18n>ObjectProductIdText}"
-						text="{
-							path: 'ProductID'
-                        }"/>
+						text="{ProductID}"/>
 					<ObjectAttribute id="_IDGenObjectAttribute2"
 						title="{i18n>ObjectPriceTitle}"
 						text="{
-							path: 'UnitPrice'
-                        } EUR"/>
+							path: 'UnitPrice',
+							formatter: '.numberUnitFormatter'} EUR"/>
 				</Panel>
 				<Panel id="_IDGenPanel2" backgroundDesign="Transparent">
 					<ObjectNumber
@@ -29,11 +29,11 @@
 						unit="PC"
 						textAlign="End"
 						state="{
-							path: 'UnitsInStock'
-                        }"
+							path: 'UnitsInStock',
+							formatter: '.quantityState'}"
 						number="{
-							path: 'UnitsInStock'
-                        }">
+							path: 'UnitsInStock',
+							formatter: '.numberUnitFormatter'}">
 					</ObjectNumber>
 					<ObjectStatus id="_IDGenObjectStatus1"
 						text="{i18n>ObjectDiscontinuedStatusText}"
@@ -45,10 +45,90 @@
 						displayValue="{UnitsInStock}"
 						showValue="true"
 						state="{
-							path: 'UnitsInStock'
-                        }" />
+							path: 'UnitsInStock',
+							formatter: '.quantityState'}" />
 				</Panel>
 			</FlexBox>
-		</semantic:headerContent> 
+		</semantic:headerContent>
+		<semantic:content>
+			<l:VerticalLayout id="_IDGenVerticalLayout1" width="100%">
+				<Panel id="_IDGenPanel3"
+					backgroundDesign="Transparent"
+					headerText="{i18n>ObjectSupplierTabTitle}">
+					<content>
+						<form:SimpleForm id="_IDGenSimpleForm1"
+							maxContainerCols="2"
+							editable="false"
+							layout="ResponsiveGridLayout"
+							labelSpanL="3"
+							labelSpanM="3"
+							emptySpanL="4"
+							emptySpanM="4"
+							columnsL="1"
+							columnsM="1">
+							<form:content>
+								<Label id="_IDGenLabel1" text="{i18n>ObjectSupplierName}"/>
+								<Text id="_IDGenText1" text="{Supplier/CompanyName}"/>
+								<Label id="_IDGenLabel2" text="{i18n>ObjectSupplierAddress}"/>
+								<Text id="_IDGenText2" text="{Supplier/Address}"/>
+								<Label id="_IDGenLabel3" text="{i18n>ObjectSupplierZipcode} / {i18n>ObjectSupplierCity}"/>
+								<Text id="_IDGenText3" text="{Supplier/PostalCode} / {Supplier/City}"/>
+								<Label id="_IDGenLabel4" text="{i18n>ObjectSupplierCountry}"/>
+								<Text id="_IDGenText4" text="{Supplier/Country}"/>
+							</form:content>
+						</form:SimpleForm>
+					</content>
+				</Panel>
+				<Panel id="idCategoryPanel" headerText="Category Info">
+					<content>
+						<form:SimpleForm id="_IDGenSimpleForm2"
+							maxContainerCols="2"
+							editable="false"
+							layout="ResponsiveGridLayout"
+							labelSpanL="3"
+							labelSpanM="3"
+							emptySpanL="4"
+							emptySpanM="4"
+							columnsL="1"
+							columnsM="1">
+							<form:content>
+								<Label text="{i18n>ObjectCategoryName}"/>
+								<Text text="{Category/CategoryName}"/>
+								<Label text="{i18n>ObjectCategoryDescription}"/>
+								<Text text="{Category/Description}"/>
+							</form:content>
+						</form:SimpleForm>
+					</content>
+				</Panel>
+				<Panel id="idOrdersPanel" 
+					headerText="Order Info"
+					backgroundDesign="Transparent">
+					<Table id="idOrderTable"
+						items="{
+							path: 'Order_Details',
+							parameters:{
+								'expand': 'Order,Order/Customer'
+							}
+						}">
+						<columns>
+							<Column><Text text="OrderID"/></Column>
+							<Column><Text text="Customer Name"/></Column>
+							<Column><Text text="UnitPrice"/></Column>
+							<Column><Text text="Quantity"/></Column>
+							<Column><Text text="Discount"/></Column>
+						</columns>
+						<items>
+							<ColumnListItem >
+								<Text text="{OrderID}"/>
+								<Text text="{Order/Customer/CompanyName}"/>
+								<Text text="{UnitPrice}"/>
+								<Text text="{Quantity}"/>
+								<Text text="{Discount}"/>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</Panel>
+			</l:VerticalLayout>
+		</semantic:content> 
     </semantic:SemanticPage>    
 </mvc:View>
